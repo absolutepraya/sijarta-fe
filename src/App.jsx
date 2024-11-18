@@ -11,6 +11,8 @@ import SubkategoriPengguna from './pages/green/SubkategoriPengguna';
 import SubkategoriPekerja from './pages/green/SubkategoriPekerja';
 import ViewPekerja from './pages/green/ViewPekerja';
 import MyPay from './pages/red/MyPay';
+import PekerjaanJasa from './pages/red/PekerjaanJasa';
+import StatusPekerjaanJasa from './pages/red/StatusPekerjaanJasa';
 
 function App() {
 	return (
@@ -68,6 +70,14 @@ function App() {
 				<Route
 					path="/mypay/pekerja"
 					element={<MyPay isPekerja={true} />}
+				/>
+				<Route
+					path="/pekerjaan-jasa"
+					element={<PekerjaanJasa />}
+				/>
+				<Route
+					path='/status-pekerjaan-jasa'
+					element={<StatusPekerjaanJasa />}
 				/>
 			</Routes>
 		</Router>
