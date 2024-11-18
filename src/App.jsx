@@ -10,6 +10,9 @@ import Homepage from './pages/green/Homepage';
 import SubkategoriPengguna from './pages/green/SubkategoriPengguna';
 import SubkategoriPekerja from './pages/green/SubkategoriPekerja';
 import ViewPekerja from './pages/green/ViewPekerja';
+import AddTestimonialForm from './pages/blue/AddTestimonialForm';
+import Testimonial from './pages/blue/Testimonial';
+import Discount from './pages/blue/Discount';
 
 function App() {
   return (
