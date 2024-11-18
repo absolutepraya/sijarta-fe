@@ -131,7 +131,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								</li>
 								<li>
 									<a
-										href="/manage-status"
+										href="/status-pekerjaan-jasa"
 										className="rounded px-4 py-2 hover:bg-green-700"
 									>
 										Kelola Status Pekerjaan
@@ -150,10 +150,10 @@ export default function NavBar({ isLoggedIn, role, name }) {
 											viewBox="0 0 24 24"
 											fill="none"
 											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"
+											strokeWidth="2"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"
 										>
 											<path
 												stroke="none"

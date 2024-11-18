@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import NavBar from '../../components/NavBar';
 
 // Dummy data: subkategori, nama, tanggal_pemesanan, tanggal_pekerjaan, biaya
 const data = [
@@ -99,7 +100,7 @@ export default function StatusPekerjaanJasa() {
 		<div className="flex min-h-screen w-full flex-col items-center space-y-8 px-24 py-16">
 			<NavBar
 				isLoggedIn={true}
-				role={isPekerja ? 'Pekerja' : 'Pengguna'}
+				role="Pekerja"
 				name="John Doe"
 			/>
 			<p className="text-2xl font-bold">MyPay</p>
