@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '../components/dialog';
+} from '../../components/dialog';
 
 export default function AddTestimonialForm() {
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star, MessageCircle, Clock, Award, Users, ThumbsUp } from 'lucide-react';
-import { Card, CardContent, Button } from '../components/CustomerComponents';
+import { Card, CardContent, Button } from '../../components/CustomerComponents';
 import { motion } from 'framer-motion';
 
 export default function Testimonial() {
