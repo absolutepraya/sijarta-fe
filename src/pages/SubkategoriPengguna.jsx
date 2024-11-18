@@ -44,7 +44,7 @@ export default function SubkategoriPengguna() {
                   ></div>
                   <div className="top-1/3 absolute left-[30%] flex w-2/5 flex-col items-center justify-center gap-4 rounded-lg bg-white py-8 shadow-lg">
                     <h1 className='text-2xl font-bold'>Pemesanan Jasa</h1>
-                    {/* main container dibagi jadi 2 */}
+                    {/* content container dibagi jadi 2 */}
                     <div className='flex flex-row w-[90%] justify-center'>
                       {/* left container */}
                       <div className='w-1/2 flex flex-col gap-2 justify-center'>
@@ -53,6 +53,7 @@ export default function SubkategoriPengguna() {
                         <p>Total pembayaran:</p>
                         <p>Metode pembayaran:</p>
                       </div>
+                      {/* right container */}
                       <div className='w-1/2 flex flex-col gap-2 justify-center'>
                         <p>Tanggal nay disini</p>
                         <input
@@ -71,6 +72,11 @@ export default function SubkategoriPengguna() {
                         </select>
                       </div>
                     </div>
+                    <input
+                      type="submit"
+                      value="Pesan"
+                      className="w-1/3 rounded-md bg-green-800 p-1 font-bold text-white"
+                    ></input>
                   </div>
                 </div>
               )}
