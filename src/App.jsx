@@ -9,6 +9,7 @@ import RegisterPekerja from './pages/RegisterPekerja';
 import Homepage from './pages/Homepage';
 import SubkategoriPengguna from './pages/SubkategoriPengguna';
 import SubkategoriPekerja from './pages/SubkategoriPekerja';
+import ViewPekerja from './pages/ViewPekerja';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/home' element={<Homepage />} />
         <Route path='/subkategori-pengguna' element={<SubkategoriPengguna />} />
         <Route path='/subkategori-pekerja' element={<SubkategoriPekerja />} />
+        <Route path='/view-pekerja' element={<ViewPekerja />} />
       </Routes>
     </Router>
   )
