@@ -1,5 +1,29 @@
 import { useState } from 'react';
 
+// Dummy data: nominal, tanggal, dan kategori transaksi
+const data = [
+	{
+		nominal: 100000,
+		tanggal: '10/11/2024',
+		kategori: 'Top-Up',
+	},
+	{
+		nominal: 200000,
+		tanggal: '10/11/2024',
+		kategori: 'Pembayaran',
+	},
+	{
+		nominal: 300000,
+		tanggal: '10/11/2024',
+		kategori: 'Transfer',
+	},
+	{
+		nominal: 400000,
+		tanggal: '10/11/2024',
+		kategori: 'Withdrawal',
+	},
+];
+
 export default function MyPay({ isPekerja }) {
 	const [formOpen, setFormOpen] = useState(false);
 	const [formCategory, setFormCategory] = useState(1);
@@ -164,7 +188,16 @@ export default function MyPay({ isPekerja }) {
 			<div className="flex w-[50rem] flex-col space-y-4 rounded-xl bg-slate-200 px-8 py-6">
 				<p className="font-bold">Riwayat Transaksi</p>
 				<p className="flex w-full flex-col items-center space-y-2">
-					<p>Tidak ada data</p>
+					{data.map((item, index) => (
+						<div
+							key={index}
+							className="flex w-full flex-row items-center justify-between"
+						>
+							<p className="w-1/2">{item.tanggal}</p>
+							<p className="w-1/2 justify-center text-center">{item.nominal}</p>
+							<p className="w-1/2 justify-end text-end">{item.kategori}</p>
+						</div>
+					))}
 				</p>
 			</div>
 		</div>
