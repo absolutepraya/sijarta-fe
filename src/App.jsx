@@ -1,11 +1,12 @@
 import React from 'react'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 
+import NavBar from './components/NavBar';
 import LandingPage from './pages/green/LandingPage';
-import LoginPage from './pages/green/LoginPage';
-import RegisterPage from './pages/green/RegisterPage';
-import RegisterPengguna from './pages/green/RegisterPengguna';
-import RegisterPekerja from './pages/green/RegisterPekerja';
+import LoginPage from './pages/yellow/LoginPage';
+import RegisterPage from './pages/yellow/RegisterPage';
+import RegisterPengguna from './pages/yellow/RegisterPengguna';
+import RegisterPekerja from './pages/yellow/RegisterPekerja';
 import Homepage from './pages/green/Homepage';
 import SubkategoriPengguna from './pages/green/SubkategoriPengguna';
 import SubkategoriPekerja from './pages/green/SubkategoriPekerja';
@@ -17,6 +18,7 @@ import Discount from './pages/blue/Discount';
 function App() {
   return (
     <Router>
+      <NavBar />
       <Routes>
         <Route path='/*' element={<Navigate to='/' replace />} />
         <Route index element={<LandingPage />} />

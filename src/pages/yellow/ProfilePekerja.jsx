@@ -21,7 +21,7 @@ export default function ProfilePekerja() {
         </div>
         {/* right sub container */}
         <div className="relative flex flex-col">
-          <img src="kontol" className="absolute right-1 top-1" alt="food"></img>
+          <img src="gambar" className="absolute right-1 top-1" alt="food"></img>
           <p>Nama:</p>
           <p>Level:</p>
           <p>Jenis kelamin:</p>
