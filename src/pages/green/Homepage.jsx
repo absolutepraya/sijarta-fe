@@ -1,3 +1,5 @@
+import KategoriHomepage from '../../components/KategoriHomepage'
+
 export default function Homepage() {
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-300">
@@ -21,15 +23,11 @@ export default function Homepage() {
         </div>
 
         {/* content div */}
-        <div className="flex w-[90%] flex-col items-center">
-          {/* div kategori */}
-          <div className="w-full rounded-md border-2 border-black p-2">
-            <h1 className="text-lg">Kategori jasa 1</h1>
-          </div>
-          {/* div subkategori */}
-          <div className="w-[97%] border-2 border-black p-2">
-            <h2>Subkategori jasa 1</h2>
-          </div>
+        <div className="flex w-[90%] flex-col items-center gap-6">
+          <KategoriHomepage
+            kategoriName="Kategori jasa contoh aja"
+            subkategoriList={['hola', 'hai', 'halo']}
+          />
         </div>
       </div>
     </div>
