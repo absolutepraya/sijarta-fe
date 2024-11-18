@@ -97,6 +97,11 @@ export default function StatusPekerjaanJasa() {
 
 	return (
 		<div className="flex min-h-screen w-full flex-col items-center space-y-8 px-24 py-16">
+			<NavBar
+				isLoggedIn={true}
+				role={isPekerja ? 'Pekerja' : 'Pengguna'}
+				name="John Doe"
+			/>
 			<p className="text-2xl font-bold">MyPay</p>
 			<div className="flex flex-row space-x-6">
 				<input
@@ -104,7 +109,7 @@ export default function StatusPekerjaanJasa() {
 					placeholder="Search Subkategori"
 					value={searchTerm}
 					onChange={handleSearch}
-					className="h-12 w-[12rem] rounded-xl px-4 border"
+					className="h-12 w-[12rem] rounded-xl border px-4"
 				/>
 				<select
 					value={selectedStatus}

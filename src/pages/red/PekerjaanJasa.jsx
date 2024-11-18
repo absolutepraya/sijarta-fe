@@ -79,6 +79,11 @@ export default function PekerjaanJasa() {
 
 	return (
 		<div className="flex min-h-screen w-full flex-col items-center space-y-8 px-24 py-16">
+			<NavBar
+				isLoggedIn={true}
+				role={isPekerja ? 'Pekerja' : 'Pengguna'}
+				name="John Doe"
+			/>
 			<p className="text-2xl font-bold">MyPay</p>
 			<div className="flex flex-row space-x-6">
 				{/* Dropdown select for kategori */}

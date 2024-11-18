@@ -1,6 +1,6 @@
 export default function NavBar({ isLoggedIn, role, name }) {
   return (
-    <nav className="bg-green-800 shadow-lg">
+    <nav className="fixed bg-green-800 shadow-lg top-0 w-full">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           {/* Brand */}

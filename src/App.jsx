@@ -65,7 +65,7 @@ function App() {
 					element={<ViewPekerja />}
 				/>
 				<Route
-					path="/mypay/pengguna"
+					path="/mypay"
 					element={<MyPay isPekerja={false} />}
 				/>
 				<Route
