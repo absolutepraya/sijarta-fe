@@ -1,8 +1,10 @@
 import KategoriHomepage from '../../components/KategoriHomepage'
+import NavBar from '../../components/NavBar'
 
 export default function Homepage() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray-300">
+    <div className="flex min-h-screen w-screen items-center justify-center bg-gray-300">
+      <NavBar isLoggedIn={true} role="Pengguna" name="John Doe" />
       <div className="flex w-3/4 flex-col items-center justify-center gap-8 rounded-lg bg-white py-8 shadow-lg">
         {/* header div */}
         <div className="flex w-[90%] flex-row justify-between gap-6">
