@@ -1,15 +1,15 @@
 import React from 'react'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 
-import LandingPage from './pages/red/LandingPage';
-import LoginPage from './pages/red/LoginPage';
-import RegisterPage from './pages/red/RegisterPage';
-import RegisterPengguna from './pages/red/RegisterPengguna';
-import RegisterPekerja from './pages/red/RegisterPekerja';
-import Homepage from './pages/red/Homepage';
-import SubkategoriPengguna from './pages/red/SubkategoriPengguna';
-import SubkategoriPekerja from './pages/red/SubkategoriPekerja';
-import ViewPekerja from './pages/red/ViewPekerja';
+import LandingPage from './pages/green/LandingPage';
+import LoginPage from './pages/green/LoginPage';
+import RegisterPage from './pages/green/RegisterPage';
+import RegisterPengguna from './pages/green/RegisterPengguna';
+import RegisterPekerja from './pages/green/RegisterPekerja';
+import Homepage from './pages/green/Homepage';
+import SubkategoriPengguna from './pages/green/SubkategoriPengguna';
+import SubkategoriPekerja from './pages/green/SubkategoriPekerja';
+import ViewPekerja from './pages/green/ViewPekerja';
 
 function App() {
   return (
