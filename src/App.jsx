@@ -10,6 +10,9 @@ import Homepage from './pages/Homepage';
 import SubkategoriPengguna from './pages/SubkategoriPengguna';
 import SubkategoriPekerja from './pages/SubkategoriPekerja';
 import ViewPekerja from './pages/ViewPekerja';
+import Testimonial from './pages/Testimonial';
+import AddTestimonialForm from './pages/AddTestimonialForm';
+import Discount from './pages/Discount';
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
         <Route path='/subkategori-pengguna' element={<SubkategoriPengguna />} />
         <Route path='/subkategori-pekerja' element={<SubkategoriPekerja />} />
         <Route path='/view-pekerja' element={<ViewPekerja />} />
+        <Route path='/testimonial' element={<Testimonial />} />
+        <Route path='/add-testimonial' element={<AddTestimonialForm />} />
+        <Route path='/discount' element={<Discount />} />
       </Routes>
     </Router>
   )
