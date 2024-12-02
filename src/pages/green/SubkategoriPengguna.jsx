@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import SesiLayanan from '../../components/SesiLayanan'
 import PekerjaButton from '../../components/PekerjaButton'
+import NavBar from '../../components/NavBar'
 
 export default function SubkategoriPengguna() {
   const [modal, setModal] = useState(false)
@@ -11,6 +12,7 @@ export default function SubkategoriPengguna() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-300">
+      <NavBar isLoggedIn={true} role="Pengguna" name="John Doe" />
       <div className="flex w-2/3 flex-col items-center justify-center gap-8 rounded-lg bg-white py-8 shadow-lg">
         {/* main content div */}
         <div className="flex w-[90%] flex-col gap-8">
