@@ -53,7 +53,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 										href="/homepage"
 										className="rounded px-4 py-2 hover:bg-green-700"
 									>
-										Homepage
+										Home
 									</a>
 								</li>
 								<li>
@@ -61,7 +61,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 										href="/mypay/pelanggan"
 										className="rounded px-4 py-2 hover:bg-green-700"
 									>
-										<p>MyPay</p>
+										MyPay
 									</a>
 								</li>
 								<li>
@@ -110,7 +110,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 										href="/home"
 										className="rounded px-4 py-2 hover:bg-green-700"
 									>
-										Homepage
+										Home
 									</a>
 								</li>
 								<li>
@@ -118,15 +118,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 										href="/subkategori-pekerja"
 										className="rounded px-4 py-2 hover:bg-green-700"
 									>
-										Subcat. Pekerja
-									</a>
-								</li>
-								<li>
-									<a
-										href="/subkategori-pelanggan"
-										className="rounded px-4 py-2 hover:bg-green-700"
-									>
-										Subcat. Pelanggan
+										Subcategory
 									</a>
 								</li>
 								<li>
@@ -134,7 +126,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 										href="/status-pekerjaan-jasa"
 										className="rounded px-4 py-2 hover:bg-green-700"
 									>
-										Kelola Status Pekerjaan
+										Status Pekerjaan
 									</a>
 								</li>
 								<li className="relative">
@@ -164,7 +156,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 										</svg>
 									</button>
 									{isMyPayOpen && (
-										<ul className="absolute right-0 mt-2 w-40 rounded-md bg-green-700 shadow-lg">
+										<ul className="absolute right-0 mt-2 w-40 rounded-md bg-green-700 shadow-lg overflow-hidden">
 											<li>
 												<a
 													href="/mypay/pelanggan"
