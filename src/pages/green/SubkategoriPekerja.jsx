@@ -2,7 +2,7 @@ import NavBar from "../../components/NavBar"
 
 export default function SubkategoriPekerja() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray-300">
+    <div className="flex h-screen w-screen items-center justify-center bg-gray-300 pt-20">
       <NavBar isLoggedIn={true} role="Pekerja" name="John Doe" />
       <div className="flex w-2/3 flex-col items-center justify-center gap-8 rounded-lg bg-white py-8 shadow-lg">
         {/* main content div */}
@@ -29,7 +29,7 @@ export default function SubkategoriPekerja() {
           <div className="flex w-full flex-col gap-2">
             <h2 className="text-lg font-bold">Pekerja</h2>
             <div className="flex w-[95%] flex-row gap-4">
-              <button className="min-h-6 w-[10%] rounded-md bg-green-800 px-2 py-1 text-white">
+              <button className="rounded-md bg-green-800 px-2 py-1 text-white">
                 Nama pekerja 1
               </button>
             </div>

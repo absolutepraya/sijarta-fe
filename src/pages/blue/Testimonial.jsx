@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Star, MessageCircle, Clock, Award, Users, ThumbsUp } from 'lucide-react';
 import { Card, CardContent, Button } from '../../components/CustomerComponents';
 import { motion } from 'framer-motion';
+import NavBar from '../../components/NavBar';
 
 export default function Testimonial() {
   const [selectedService, setSelectedService] = useState(null);
@@ -49,10 +50,11 @@ export default function Testimonial() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 pt-20">
+      <NavBar isLoggedIn={true} role="Pengguna" name="John Doe" />
       {/* Sticky Header */}
       <div className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : ''
+        isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md top-16' : ''
       }`}>
         <div className="max-w-4xl mx-auto p-4">
           <motion.div 

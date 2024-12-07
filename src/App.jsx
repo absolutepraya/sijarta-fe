@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import NavBar from './components/NavBar';
 import LandingPage from './pages/green/LandingPage';
 import LoginPage from './pages/yellow/LoginPage';
 import RegisterPage from './pages/yellow/RegisterPage';
@@ -16,6 +15,11 @@ import PekerjaanJasa from './pages/red/PekerjaanJasa';
 import StatusPekerjaanJasa from './pages/red/StatusPekerjaanJasa';
 import ProfilePekerja from './pages/yellow/ProfilePekerja';
 import ProfilePengguna from './pages/yellow/ProfilePengguna';
+import Diskon from './pages/blue/Discount';
+import Testimonial from './pages/blue/Testimonial';
+import AddTestimonialForm from './pages/blue/AddTestimonialForm';
+
+// TODO: There are some temporary routes here that need to be removed
 
 function App() {
 	return (
@@ -55,6 +59,10 @@ function App() {
 					element={<Homepage />}
 				/>
 				<Route
+					path="/home-pekerja" // Temporary
+					element={<Homepage isPekerja={true} />}
+				/>
+				<Route
 					path="/subkategori-pengguna"
 					element={<SubkategoriPengguna />}
 				/>
@@ -79,7 +87,7 @@ function App() {
 					element={<PekerjaanJasa />}
 				/>
 				<Route
-					path='/status-pekerjaan-jasa'
+					path="/status-pekerjaan-jasa"
 					element={<StatusPekerjaanJasa />}
 				/>
 				<Route
@@ -89,6 +97,18 @@ function App() {
 				<Route
 					path="/profile/pekerja"
 					element={<ProfilePekerja />}
+				/>
+				<Route
+					path="/discounts"
+					element={<Diskon />}
+				/>
+				<Route
+					path="/testimonials"
+					element={<Testimonial />}
+				/>
+				<Route
+					path="/add-testimonial"
+					element={<AddTestimonialForm />}
 				/>
 			</Routes>
 		</Router>

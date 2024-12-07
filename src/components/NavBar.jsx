@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 export default function NavBar({ isLoggedIn, role, name }) {
-	const [isMyPayOpen, setIsMyPayOpen] = useState(false);
+	const [isPekerjaanOpen, setIsPekerjaanOpen] = useState(false);
 
-	const toggleMyPay = () => {
-		setIsMyPayOpen(!isMyPayOpen);
+	const togglePekerjaan = () => {
+		setIsPekerjaanOpen(!isPekerjaanOpen);
 	};
 
 	return (
-		<nav className="fixed top-0 w-full bg-green-800 shadow-lg">
-			<div className="container mx-auto px-4">
+		<nav className="fixed left-0 top-0 w-full bg-green-800 shadow-lg !z-[100]">
+			<div className="container mx-auto">
 				<div className="flex items-center justify-between py-4">
 					{/* Brand */}
 					<a
@@ -26,7 +26,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								<li>
 									<a
 										href="/login"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Login
 									</a>
@@ -34,7 +34,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								<li>
 									<a
 										href="/register"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Register
 									</a>
@@ -45,13 +45,13 @@ export default function NavBar({ isLoggedIn, role, name }) {
 							<>
 								<li>
 									<span className="font-semibold">
-										Role: {role} | {name}
+										{name} | {role}
 									</span>
 								</li>
 								<li>
 									<a
-										href="/homepage"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										href="/home"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Home
 									</a>
@@ -59,7 +59,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								<li>
 									<a
 										href="/mypay/pelanggan"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										MyPay
 									</a>
@@ -67,23 +67,23 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								<li>
 									<a
 										href="/orders"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
-										Kelola Pesanan Saya
+										Kelola Pesanan
 									</a>
 								</li>
 								<li>
 									<a
 										href="/discounts"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Diskon
 									</a>
 								</li>
 								<li>
 									<a
-										href="/profile"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										href="/profile/pengguna"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Profile
 									</a>
@@ -91,7 +91,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								<li>
 									<a
 										href="/logout"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Logout
 									</a>
@@ -101,40 +101,32 @@ export default function NavBar({ isLoggedIn, role, name }) {
 							// Navbar for Pekerja
 							<>
 								<li>
-									<span className="font-semibold">
-										Role: {role} | {name}
+									<span className="flex flex-col items-start justify-center font-semibold">
+										{name} | {role}
 									</span>
 								</li>
 								<li>
 									<a
-										href="/home"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										href="/home-pekerja"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Home
 									</a>
 								</li>
 								<li>
 									<a
-										href="/subkategori-pekerja"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										href="/mypay/pekerja"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
-										Subcategory
-									</a>
-								</li>
-								<li>
-									<a
-										href="/status-pekerjaan-jasa"
-										className="rounded px-4 py-2 hover:bg-green-700"
-									>
-										Status Pekerjaan
+										MyPay
 									</a>
 								</li>
 								<li className="relative">
 									<button
-										onClick={toggleMyPay}
-										className="rounded px-4 py-2 hover:bg-green-700 focus:outline-none flex flex-row items-center space-x-2"
+										onClick={togglePekerjaan}
+										className="flex flex-row items-center space-x-2 rounded px-3 py-2 hover:bg-green-700 focus:outline-none"
 									>
-										<p>MyPay</p>
+										<p>Pekerjaan</p>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="20"
@@ -155,22 +147,22 @@ export default function NavBar({ isLoggedIn, role, name }) {
 											<path d="M6 9l6 6l6 -6" />
 										</svg>
 									</button>
-									{isMyPayOpen && (
-										<ul className="absolute right-0 mt-2 w-40 rounded-md bg-green-700 shadow-lg overflow-hidden">
+									{isPekerjaanOpen && (
+										<ul className="absolute right-0 mt-2 w-40 overflow-hidden rounded-md bg-green-700 shadow-lg">
 											<li>
 												<a
-													href="/mypay/pelanggan"
-													className="block px-4 py-2 hover:bg-green-600"
+													href="/pekerjaan-jasa"
+													className="block px-3 py-2 hover:bg-green-600"
 												>
-													Pelanggan
+													Pilih Pekerjaan
 												</a>
 											</li>
 											<li>
 												<a
-													href="/mypay/pekerja"
-													className="block px-4 py-2 hover:bg-green-600"
+													href="/status-pekerjaan-jasa"
+													className="block px-3 py-2 hover:bg-green-600"
 												>
-													Pekerja
+													Status Pekerjaan
 												</a>
 											</li>
 										</ul>
@@ -178,8 +170,16 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								</li>
 								<li>
 									<a
-										href="/profile"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										href="/subkategori-pekerja"
+										className="rounded px-3 py-2 hover:bg-green-700"
+									>
+										Subkategori
+									</a>
+								</li>
+								<li>
+									<a
+										href="/profile/pekerja"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Profile
 									</a>
@@ -187,7 +187,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 								<li>
 									<a
 										href="/logout"
-										className="rounded px-4 py-2 hover:bg-green-700"
+										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Logout
 									</a>

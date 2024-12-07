@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NavBar from '../../components/NavBar';
 
 const Dialog = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -88,7 +89,9 @@ const Diskon = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen p-8">
+    <div className="bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen p-8 pt-20">
+      <NavBar isLoggedIn={true} role="Pengguna" name="John Doe" />
+      
       <h1 className="text-3xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
         Diskon
       </h1>

@@ -31,7 +31,11 @@ export default function MyPay({ isPekerja }) {
 
 	return (
 		<div className="flex min-h-screen w-full flex-col items-center space-y-8 px-24 py-16">
-			<NavBar isLoggedIn={true} role={isPekerja ? 'Pekerja' : 'Pengguna'} name="John Doe" />
+			<NavBar
+				isLoggedIn={true}
+				role={isPekerja ? 'Pekerja' : 'Pengguna'}
+				name="John Doe"
+			/>
 			{formOpen && (
 				<div className="fixed z-20 flex w-[40rem] flex-col items-center space-y-4 rounded-xl bg-slate-200 px-8 py-6">
 					<p className="font-bold">Form</p>
@@ -203,7 +207,28 @@ export default function MyPay({ isPekerja }) {
 				</p>
 			</div>
 
-			<p>To check from Pekerja side, go to <a href='/mypay/pekerja' className='text-blue-600 underline'>/mypay/pekerja</a>.</p>
+			<div className="flex flex-col space-y-1 items-center">
+				<p>
+					To check from Pekerja side, go to{' '}
+					<a
+						href="/mypay/pekerja"
+						className="text-blue-600 underline"
+					>
+						/mypay/pekerja
+					</a>
+					.
+				</p>
+				<p>
+					To check from Pengguna side, go to{' '}
+					<a
+						href="/mypay/pengguna"
+						className="text-blue-600 underline"
+					>
+						/mypay/pengguna
+					</a>
+					.
+				</p>
+			</div>
 		</div>
 	);
 }
