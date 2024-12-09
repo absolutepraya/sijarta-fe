@@ -13,14 +13,17 @@ export default function Homepage({ isPekerja = false }) {
 				{/* header div */}
 				<div className="flex w-[90%] flex-row justify-between gap-6">
 					{/* kategori dropdown */}
-					<select className="w-1/5 rounded-md px-3">
+					<select
+						className="w-1/5 rounded-md px-3"
+						defaultValue=""
+					>
 						<option
 							value=""
 							disabled
-							selected
 						>
 							Pilih kategori
 						</option>
+						{/* Add other options here */}
 					</select>
 					{/* nama subkategori */}
 					<h1 className="w-1/5 text-center text-2xl font-bold">Subkategori</h1>

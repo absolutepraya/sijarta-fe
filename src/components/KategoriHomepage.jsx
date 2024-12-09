@@ -8,7 +8,7 @@ export default function KategoriHomepage({ kategoriName, subkategoriList }) {
 			{/* map over subkategori list */}
 			{subkategoriList.map((subkategoriName, index) => (
 				// mungkin perlu key
-				<div className="mt-2 flex w-[97%] flex-row justify-between items-center rounded-md border-2 border-black p-2 px-3">
+				<div className="mt-2 flex w-[97%] flex-row justify-between items-center rounded-md border-2 border-black p-2 px-3" key={index}>
 					<h2>{subkategoriName}</h2>
 					<a href="/testimonials">
 						<button className="rounded-md bg-green-800 px-2 py-1 text-white">Lihat testimoni</button>

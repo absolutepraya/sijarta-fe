@@ -1,26 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import axios from 'axios';
 
 export default function NavBar({ isLoggedIn }) {
 	const [isPekerjaanOpen, setIsPekerjaanOpen] = useState(false);
-	const [nama, setNama] = useState(sessionStorage.getItem('nama'));
-	const [role, setRole] = useState('Pengguna'); // Karena belum ada cara dapetin role
+
+	const nama = sessionStorage.getItem('nama');
+	const role = sessionStorage.getItem('role');
 
 	const togglePekerjaan = () => {
 		setIsPekerjaanOpen(!isPekerjaanOpen);
 	};
 
+	const handleLogOut = () => {
+		sessionStorage.clear();
+		window.location.href = '/login';
+	};
+
+	useEffect(() => {
+		if (sessionStorage.getItem('id') === null) {
+			window.location.href = '/login';
+		}
+	}, [isLoggedIn]);
+
 	return (
-		<nav className="fixed left-0 top-0 w-full bg-green-800 shadow-lg !z-[100]">
+		<nav className="fixed left-0 top-0 !z-[100] w-full text-nowrap bg-green-800 shadow-lg">
 			<div className="container mx-auto">
-				<div className="flex items-center justify-between py-4">
-					{/* Brand */}
-					<a
-						href="/"
-						className="text-2xl font-bold text-white"
-					>
-						SIJARTA
-					</a>
+				<div className="flex items-center justify-center py-4">
 					{/* Navbar Links */}
 					<ul className="flex items-center space-x-6 text-white">
 						{!isLoggedIn ? (
@@ -43,13 +48,13 @@ export default function NavBar({ isLoggedIn }) {
 									</a>
 								</li>
 							</>
-						) : role === 'Pengguna' ? (
-							// Navbar for Pengguna
+						) : role === 'pelanggan' ? (
+							// Navbar for pelanggan
 							<>
 								<li>
-									<span className="font-semibold">
-										{nama} | {role}
-									</span>
+									<p className="font-bold">
+										🧑🏼 {nama} | {role.toUpperCase()}
+									</p>
 								</li>
 								<li>
 									<a
@@ -85,28 +90,28 @@ export default function NavBar({ isLoggedIn }) {
 								</li>
 								<li>
 									<a
-										href="/profile/pengguna"
+										href="/profile/pelanggan"
 										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Profile
 									</a>
 								</li>
 								<li>
-									<a
-										href="/logout"
+									<button
 										className="rounded px-3 py-2 hover:bg-green-700"
+										onClick={handleLogOut}
 									>
 										Logout
-									</a>
+									</button>
 								</li>
 							</>
-						) : role === 'Pekerja' ? (
-							// Navbar for Pekerja
+						) : role === 'pekerja' ? (
+							// Navbar for pekerja
 							<>
 								<li>
-									<span className="flex flex-col items-start justify-center font-semibold">
-										{nama} | {role}
-									</span>
+									<p className="font-bold">
+										🧑🏼 {nama} | {role.toUpperCase()}
+									</p>
 								</li>
 								<li>
 									<a
@@ -188,12 +193,12 @@ export default function NavBar({ isLoggedIn }) {
 									</a>
 								</li>
 								<li>
-									<a
-										href="/logout"
+									<button
 										className="rounded px-3 py-2 hover:bg-green-700"
+										onClick={handleLogOut}
 									>
 										Logout
-									</a>
+									</button>
 								</li>
 							</>
 						) : null}
