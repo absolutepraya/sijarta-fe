@@ -49,7 +49,7 @@ export default function LoginPage() {
 
 				<button
 					onClick={handleLogin}
-					className="rounded-md bg-blue-500 p-2 text-white"
+					className="w-1/3 rounded-md bg-green-800 p-1 font-bold text-white"
 				>
 					Login
 				</button>
