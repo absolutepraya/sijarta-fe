@@ -11,7 +11,7 @@ export default function Homepage({ isPekerja = false }) {
   const [kategoriJasa, setKategoriJasa] = useState([]);
   
   // Fetch categories from the backend
-  const homeDropdown = () => {
+  const homepageAsync = () => {
     axios
       .get(URL + 'green/daftar-kategori') // Make a GET request
       .then((res) => {
@@ -23,9 +23,9 @@ export default function Homepage({ isPekerja = false }) {
       });
   };
 
-  // Use useEffect to call homeDropdown when the component mounts
+  // Use useEffect to call homepageAsync when the component mounts
   useEffect(() => {
-    homeDropdown(); // Call the function once when the page loads
+    homepageAsync(); // Call the function once when the page loads
   }, []);
 
   return (

@@ -1,14 +1,31 @@
-import { useState } from 'react'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import SesiLayanan from '../../components/SesiLayanan'
 import PekerjaButton from '../../components/PekerjaButton'
 import NavBar from '../../components/NavBar'
 
-export default function SubkategoriPengguna() {
-  const [modal, setModal] = useState(false)
+// URL BE
+const URL = 'http://localhost:5000/';
 
-  const toggleModal = () => {
-    setModal(!modal)
+export default function SubkategoriPengguna() {
+  // async data fetching
+  const [subkategoriJasa, setSubkategoriJasa] = useState([]);
+
+  const subPenggunaAsync = (subkategoriId) => {
+    axios
+      .get(URL + 'green/subkategori-detail/' + subkategoriId)
+      .then((res) => {
+        setSubkategoriJasa(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
+
+  useEffect(() => {
+    subPenggunaAsync();
+  }, []);
+
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-300">
@@ -19,17 +36,19 @@ export default function SubkategoriPengguna() {
           {/* header div */}
           <div className="flex w-full flex-row justify-between">
             <h1 className="w-[35%] text-center text-2xl font-bold">
-              Nama Subkategori
+              {subkategoriJasa.namasubkategori}
             </h1>
-            <h1 className="w-[35%] text-center text-2xl font-bold">Kategori</h1>
+            <h1 className="w-[35%] text-center text-2xl font-bold">{subkategoriJasa.namakategori}</h1>
           </div>
           {/* deskripsi */}
-          <p className="w-2/3">Deskripsi</p>
+          <p className="w-2/3">{subkategoriJasa.deskripsi}</p>
           {/* pilihan sesi layanan */}
           <div className="flex w-full flex-col gap-2">
             <h2 className="text-lg font-bold">Pilihan sesi layanan</h2>
-            <SesiLayanan sesiLayanan="pagi" harga={20000} />
-            <SesiLayanan sesiLayanan="malam" harga={15000} />
+            {/* here */}
+            {subkategoriJasa.sesi_info.map((sesiSub, index) => (
+              <SesiLayanan key={index} sesiLayanan={sesiSub.sesi} harga={sesiSub.harga} />
+            ))}
           </div>
           {/* daftar pekerja */}
           <div className="flex w-full flex-col gap-2">
