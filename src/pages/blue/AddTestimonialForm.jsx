@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Star, Search, MessageCircle } from 'lucide-react';
 import NavBar from '../../components/NavBar';
+import axios from 'axios';
 // import { submitTestimonial, purchaseVoucher } from '../../'; // Import API functions
 
 function Dialog({ open, onOpenChange, children }) {
@@ -49,42 +50,23 @@ export default function AddTestimonialForm() {
     const [authToken, setAuthToken] = useState(''); // Replace with actual token retrieval logic
 	const[isSubmitting, setIsSubmitting] = useState(false);
 
-    const API_BASE_URL = 'http:127.0.0.1:5000/blue';
+    const API_BASE_URL = 'http://localhost:5000/blue';
 
     useEffect(() => {
-        // Fetch services
-        const fetchServices = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/testimoni`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch services');
-                }
-                const data = await response.json();
-                setServices(data);
+                const [vouchersRes, promosRes] = await Promise.all([
+                    axios.get(`${API_BASE_URL}/voucher`),
+                ]);
+                setVouchers(vouchersRes.data);
+				console.log(vouchersRes.data);
             } catch (error) {
-                console.error('Error fetching services:', error);
-                alert(`Error fetching services: ${error.message}`);
+                console.error('Error fetching data:', error);
             }
         };
 
-        // Fetch vouchers
-        const fetchVouchers = async () => {
-            try {
-                const response = await fetch(`${API_BASE_URL}/voucher`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch vouchers');
-                }
-                const data = await response.json();
-                setVouchers(data);
-            } catch (error) {
-                console.error('Error fetching vouchers:', error);
-                alert(`Error fetching vouchers: ${error.message}`);
-            }
-        };
-
-        fetchServices();
-        fetchVouchers();
-    }, [API_BASE_URL]);
+        fetchData();
+    }, []);
 
     const handleSubmitTestimonial = async () => {
         if (!selectedServiceId) {
@@ -134,6 +116,7 @@ export default function AddTestimonialForm() {
                 throw new Error('Failed to fetch updated vouchers');
             }
             const updatedVouchersData = await updatedVouchersResponse.json();
+			// console.log(updatedVouchersData);
             setVouchers(updatedVouchersData);
         } catch (error) {
             console.error('Error purchasing voucher:', error);
@@ -238,12 +221,12 @@ export default function AddTestimonialForm() {
                     <h2 className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-xl font-semibold text-transparent p-6">Available Vouchers</h2>
                     <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {vouchers.map((voucher) => (
-                            <div key={voucher.Kode} className="border rounded-lg p-4 shadow">
-                                <h3 className="text-lg font-semibold">{voucher.Nama}</h3>
-                                <p className="text-gray-700">Harga: {voucher.Harga}</p>
-                                <p className="text-gray-700">Kuota: {voucher.KuotaPenggunaan}</p>
+                            <div key={voucher.kode} className="border rounded-lg p-4 shadow">
+                                <h3 className="text-lg font-semibold">{voucher.nama}</h3>
+                                <p className="text-gray-700">Harga: {voucher.harga}</p>
+                                <p className="text-gray-700">Kuota: {voucher.kuotapenggunaan}</p>
                                 <button
-                                    onClick={() => handlePurchaseVoucher(voucher.Kode)}
+                                    onClick={() => handlePurchaseVoucher(voucher.kode)}
                                     className="mt-4 w-full rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-white shadow transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg"
                                 >
                                     Purchase
