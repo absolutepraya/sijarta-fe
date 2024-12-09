@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
+import axios from 'axios';
 
 // Dummy data: subkategori, nama, tanggal_pemesanan, tanggal_pekerjaan, biaya
 const data = [
@@ -53,48 +54,112 @@ const data = [
 	},
 ];
 
-const statusList = ['Menunggu Pekerja Berangkat', 'Tiba Di Lokasi', 'Melakukan Pelayanan Jasa', 'Pesanan Selesai'];
+const statusList = [
+	// 'Menunggu Pembayaran',
+	// 'Pembayaran Berhasil',
+	// 'Mencari Pekerja Terdekat',
+	// 'Pemesanan Dibatalkan',
+	'Pesanan Selesai',
+	'Menunggu Pekerja Berangkat',
+	'Pekerja Tiba di Lokasi',
+	'Pelayanan Jasa Sedang Dilakukan',
+]
 
 export default function StatusPekerjaanJasa() {
 	const [filteredData, setFilteredData] = useState(data);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedStatus, setSelectedStatus] = useState('');
+	const [pesanan, setPesanan] = useState([]);
 
-	const handleUpdateStatus = (index) => {
-		setFilteredData((prevData) =>
-			prevData.map((item, idx) => {
-				if (idx === index) {
-					const currentStatusIndex = statusList.indexOf(item.status);
-					if (currentStatusIndex < statusList.length - 1) {
-						return { ...item, status: statusList[currentStatusIndex + 1] };
-					}
-				}
-				return item;
+	// Fetch data from API
+	useEffect(() => {
+		axios
+			.get('http://localhost:5000/red/pesanan-untuk-update?idpekerja=' + sessionStorage.getItem('id'))
+			.then((res) => {
+				setPesanan(res.data);
+				console.log(res.data);
 			})
-		);
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
+
+	// postgres=> select * from status_pesanan;
+	//                   id                  |             status
+	// --------------------------------------+---------------------------------
+	//  8b6930c6-2d60-490d-a038-0ca3c5c44abe | Menunggu Pembayaran
+	//  db1c5a8e-0220-4b96-a9a3-a4a965ca2c5e | Pembayaran Berhasil
+	//  5db7572e-9dba-4467-b69b-c09ac3551f4a | Mencari Pekerja Terdekat
+	//  3fb470d6-6526-423d-a5fb-176e156d3eaf | Pemesanan Dibatalkan
+	//  3870e6de-c3de-4cdc-a0f7-deb3059abfdc | Pesanan Selesai
+	//  90473fc0-da6a-41f0-bae4-7952c56d019d | Menunggu Pekerja Berangkat
+	//  3f7fc2b2-862f-4c1d-a660-70ff0469d236 | Pekerja Tiba di Lokasi
+	//  e24819cf-655b-4690-8541-b5969a03ecc6 | Pelayanan Jasa Sedang Dilakukan
+	// (8 rows)
+
+	const statusObject = {
+		'8b6930c6-2d60-490d-a038-0ca3c5c44abe': 'Menunggu Pembayaran',
+		'db1c5a8e-0220-4b96-a9a3-a4a965ca2c5e': 'Pembayaran Berhasil',
+		'5db7572e-9dba-4467-b69b-c09ac3551f4a': 'Mencari Pekerja Terdekat',
+		'3fb470d6-6526-423d-a5fb-176e156d3eaf': 'Pemesanan Dibatalkan',
+		'3870e6de-c3de-4cdc-a0f7-deb3059abfdc': 'Pesanan Selesai',
+		'90473fc0-da6a-41f0-bae4-7952c56d019d': 'Menunggu Pekerja Berangkat',
+		'3f7fc2b2-862f-4c1d-a660-70ff0469d236': 'Pekerja Tiba di Lokasi',
+		'e24819cf-655b-4690-8541-b5969a03ecc6': 'Pelayanan Jasa Sedang Dilakukan',
 	};
 
-	const handleSearch = (e) => {
-		setSearchTerm(e.target.value);
-	};
+	// Flow of update status
+	// Menunggu Pekerja Berangkat -> Pekerja Tiba di Lokasi
+	// Pekerja Tiba di Lokasi -> Pelayanan Jasa Sedang Dilakukan
+	// Pelayanan Jasa Sedang Dilakukan -> Pesanan Selesai
 
-	const handleStatusChange = (e) => {
-		setSelectedStatus(e.target.value);
-	};
+	const handleUpdateStatus = (item) => {
+		const idpesanan = item.id;
+		const currentStatus = item.idstatus;
+		let newStatus = '';
 
-	const applyFilters = () => {
-		let updatedData = data;
-
-		if (searchTerm.trim() !== '') {
-			updatedData = updatedData.filter((item) => item.subkategori.toLowerCase().includes(searchTerm.toLowerCase()));
+		if (currentStatus === '90473fc0-da6a-41f0-bae4-7952c56d019d') {
+			newStatus = '3f7fc2b2-862f-4c1d-a660-70ff0469d236';
+		} else if (currentStatus === '3f7fc2b2-862f-4c1d-a660-70ff0469d236') {
+			newStatus = 'e24819cf-655b-4690-8541-b5969a03ecc6';
+		} else if (currentStatus === 'e24819cf-655b-4690-8541-b5969a03ecc6') {
+			newStatus = '3870e6de-c3de-4cdc-a0f7-deb3059abfdc';
 		}
 
-		if (selectedStatus !== '') {
-			updatedData = updatedData.filter((item) => item.status === selectedStatus);
-		}
-
-		setFilteredData(updatedData);
+		axios
+			.put('http://localhost:5000/red/pesanan?idpesanan=' + idpesanan + '&idstatus=' + newStatus)
+			.then((res) => {
+				console.log(res.data);
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
+
+	// const handleSearch = (e) => {
+	// 	setSearchTerm(e.target.value);
+	// };
+
+	// const handleStatusChange = (e) => {
+	// 	setSelectedStatus(e.target.value);
+	// };
+
+	// const applyFilters = () => {
+	// 	let updatedData = pesanan;
+
+	// 	if (searchTerm.trim() !== '') {
+	// 		updatedData = updatedData.filter((item) => item.subkategori.toLowerCase().includes(searchTerm.toLowerCase()));
+	// 	}
+
+	// 	if (selectedStatus !== '') {
+	// 		updatedData = updatedData.filter((item) => item.status === selectedStatus);
+	// 	}
+
+	// 	setFilteredData(updatedData);
+	// };
+
+	const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
 	return (
 		<div className="flex min-h-screen w-full flex-col items-center space-y-8 px-24 py-16">
@@ -108,58 +173,50 @@ export default function StatusPekerjaanJasa() {
 				<input
 					type="text"
 					placeholder="Search Subkategori"
-					value={searchTerm}
-					onChange={handleSearch}
+					// onChange={handleSearch}
 					className="h-12 w-[12rem] rounded-xl border px-4"
 				/>
 				<select
-					value={selectedStatus}
-					onChange={handleStatusChange}
+					// onChange={handleStatusChange}
 					className="h-12 w-[12rem] rounded-xl px-4"
 				>
-					<option value="">All Status</option>
-					{statusList.map((status, index) => (
-						<option
-							key={index}
-							value={status}
-						>
-							{status}
-						</option>
-					))}
+					<option default value="">All Status</option>
 				</select>
 				<button
-					onClick={applyFilters}
+					// onClick={applyFilters}
 					className="h-12 w-[12rem] rounded-xl bg-black font-bold text-white"
 				>
 					Filter
 				</button>
 			</div>
+			<p>(Filter di page ini gasempet keimplement 😞)</p>
 			<div className="flex w-[50rem] flex-col space-y-4 rounded-xl bg-slate-200 px-8 py-6">
-				{filteredData.length > 0 ? (
-					filteredData.map((item, index) => (
+				{pesanan.length > 0 ? (
+					pesanan.map((item, index) => (
 						<div
 							className="flex h-20 w-full space-x-3 rounded-xl bg-white px-3"
 							key={index}
 						>
 							<div className="flex h-full w-1/2 flex-col justify-center">
 								<div className="flex flex-row space-x-1">
-									<p>{item.subkategori} - </p>
-									<p>{item.nama}</p>
+									<p>{item.namasubkategori} - </p>
+									<p>{item.namapelanggan}</p>
 								</div>
 								<div className="flex flex-row space-x-1">
-									<p>{item.tanggal_pemesanan} - </p>
-									<p>{item.tanggal_pekerjaan}</p>
+									<p>
+										{new Date(item.tglpemesanan).toLocaleDateString('en-US', options)} | {new Date(item.tglpekerjaan).toLocaleDateString('en-US', options)}
+									</p>
 								</div>
 							</div>
 							<div className="flex h-full flex-row items-center justify-end">
-								<p>Rp{item.biaya.toLocaleString()}</p>
+								<p>Rp{item.totalbiaya.toLocaleString()}</p>
 							</div>
 							<div className="flex h-full w-1/3 flex-col items-center justify-center space-y-1">
-								<p>{item.status}</p>
-								{item.status !== 'Pesanan Selesai' && (
+								<p>{statusObject[item.idstatus]}</p>
+								{statusObject[item.idstatus] !== 'Pesanan Selesai' && (
 									<button
 										className="rounded-xl bg-blue-600 px-3 py-1 font-semibold text-white"
-										onClick={() => handleUpdateStatus(index)}
+										onClick={() => handleUpdateStatus(item)}
 									>
 										Update Status
 									</button>
