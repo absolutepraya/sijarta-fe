@@ -1,33 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar';
-
-// Dummy data: nominal, tanggal, dan kategori transaksi
-const data = [
-	{
-		nominal: 100000,
-		tanggal: '10/11/2024',
-		kategori: 'Top-Up',
-	},
-	{
-		nominal: 200000,
-		tanggal: '10/11/2024',
-		kategori: 'Pembayaran',
-	},
-	{
-		nominal: 300000,
-		tanggal: '10/11/2024',
-		kategori: 'Transfer',
-	},
-	{
-		nominal: 400000,
-		tanggal: '10/11/2024',
-		kategori: 'Withdrawal',
-	},
-];
+import axios from 'axios';
 
 export default function MyPay({ isPekerja }) {
+	const userId = sessionStorage.getItem('id');
+	const nohp = sessionStorage.getItem('nohp');
+	const nama = sessionStorage.getItem('nama');
+	const role = sessionStorage.getItem('role');
 	const [formOpen, setFormOpen] = useState(false);
 	const [formCategory, setFormCategory] = useState(1);
+	const [saldo, setSaldo] = useState('Fetching data...');
+	const [transactions, setTransactions] = useState([]);
+
+	// Fetch data from BE
+	useEffect(() => {
+		axios
+			.get('http://localhost:5000/red/user/' + userId)
+			.then((res) => {
+				setSaldo(res.data.saldomypay);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+
+		axios
+			.get('http://localhost:5000/red/transaksi/' + userId)
+			.then((res) => {
+				setTransactions(res.data);
+				console.log(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 
 	return (
 		<div className="flex min-h-screen w-full flex-col items-center space-y-8 px-24 py-16">
@@ -40,9 +45,9 @@ export default function MyPay({ isPekerja }) {
 				<div className="fixed z-20 flex w-[40rem] flex-col items-center space-y-4 rounded-xl bg-slate-200 px-8 py-6">
 					<p className="font-bold">Form</p>
 					<div className="flex flex-col space-y-1">
-						<p className="font-semibold">Nama: John Doe</p>
-						<p className="font-semibold">Tanggal: 10/11/2024</p>
-						<p className="font-semibold">Saldo: Rp420.000</p>
+						<p className="font-semibold">Nama: {nama}</p>
+						<p className="font-semibold">Tanggal: {new Date().toLocaleDateString()}</p>
+						<p className="font-semibold">Saldo: Rp{saldo}</p>
 					</div>
 
 					{/* Dropdown kategori transaksi */}
@@ -180,8 +185,8 @@ export default function MyPay({ isPekerja }) {
 			<p className="text-2xl font-bold">MyPay</p>
 			<div className="flex flex-row space-x-6">
 				<div className="flex h-12 w-[30rem] flex-row items-center justify-between rounded-xl border bg-blue-600 px-4 font-semibold text-white">
-					<p>No. HP: 08123456789</p>
-					<p>Saldo: Rp420.000</p>
+					<p>No. HP: {nohp}</p>
+					<p>Saldo: Rp{saldo}</p>
 				</div>
 				<button
 					className="h-12 w-[12rem] rounded-xl bg-black font-bold text-white"
@@ -193,18 +198,18 @@ export default function MyPay({ isPekerja }) {
 
 			<div className="flex w-[50rem] flex-col space-y-4 rounded-xl bg-slate-200 px-8 py-6">
 				<p className="font-bold">Riwayat Transaksi</p>
-				<p className="flex w-full flex-col items-center space-y-2">
-					{data.map((item, index) => (
+				<div className="flex w-full flex-col items-center space-y-2">
+					{transactions.map((item, index) => (
 						<div
 							key={index}
 							className="flex w-full flex-row items-center justify-between"
 						>
-							<p className="w-1/2">{item.tanggal}</p>
+							<p className="w-1/2">{item.tgl}</p>
 							<p className="w-1/2 justify-center text-center">{item.nominal}</p>
 							<p className="w-1/2 justify-end text-end">{item.kategori}</p>
 						</div>
 					))}
-				</p>
+				</div>
 			</div>
 
 			<div className="flex flex-col space-y-1 items-center">
