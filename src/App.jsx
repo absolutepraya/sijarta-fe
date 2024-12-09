@@ -63,7 +63,7 @@ function App() {
 					element={<Homepage isPekerja={true} />}
 				/>
 				<Route
-					path="/subkategori-pengguna"
+					path="/kategori/:catId/subkategori/:subId"
 					element={<SubkategoriPengguna />}
 				/>
 				<Route

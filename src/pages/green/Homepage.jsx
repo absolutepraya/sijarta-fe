@@ -11,7 +11,7 @@ export default function Homepage({ isPekerja = false }) {
   const [kategoriJasa, setKategoriJasa] = useState([]);
   
   // Fetch categories from the backend
-  const homepageAsync = () => {
+  const homeDropdown = () => {
     axios
       .get(URL + 'green/daftar-kategori') // Make a GET request
       .then((res) => {
@@ -23,9 +23,9 @@ export default function Homepage({ isPekerja = false }) {
       });
   };
 
-  // Use useEffect to call homepageAsync when the component mounts
+  // Use useEffect to call homeDropdown when the component mounts
   useEffect(() => {
-    homepageAsync(); // Call the function once when the page loads
+    homeDropdown(); // Call the function once when the page loads
   }, []);
 
   return (
@@ -64,7 +64,7 @@ export default function Homepage({ isPekerja = false }) {
 				{kategoriJasa.map((kategori, index) => (
 					<div className="flex w-[90%] flex-col items-center gap-6">
 						<KategoriHomepage
-							kategoriName={kategori.namakategori}
+							kategori={kategori}
 							subkategoriList={kategori.listsubkategori}
 						/>
 					</div>
