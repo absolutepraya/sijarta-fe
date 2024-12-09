@@ -82,10 +82,10 @@ export default function SubkategoriPengguna() {
 					<div className="flex w-full flex-col gap-2">
 						<h2 className="text-lg font-bold">Pekerja</h2>
 						<div className="flex w-[95%] flex-row gap-4">
-							{subkategoriJasa[0].pekerja_info.map((pkrj_name, index) => (
+							{subkategoriJasa[0].pekerja_info.map((pekerja, index) => (
 								<PekerjaButton
 									key={index}
-									namaPekerja={pkrj_name.nama_pekerja}
+									pekerja={pekerja}
 								/>
 							))}
 						</div>

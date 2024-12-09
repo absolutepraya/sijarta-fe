@@ -71,7 +71,7 @@ function App() {
 					element={<SubkategoriPekerja />}
 				/>
 				<Route
-					path="/view-pekerja"
+					path="/view-pekerja/:pkId"
 					element={<ViewPekerja />}
 				/>
 				<Route

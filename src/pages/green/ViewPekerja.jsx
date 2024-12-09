@@ -1,6 +1,9 @@
+import { useParams } from "react-router-dom"
 import NavBar from "../../components/NavBar"
 
 export default function ViewPekerja() {
+  const {pkId} = useParams();
+
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-300">
       <NavBar
