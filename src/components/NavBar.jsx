@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import axios from 'axios';
 
 export default function NavBar({ isLoggedIn }) {
@@ -15,6 +15,12 @@ export default function NavBar({ isLoggedIn }) {
 		sessionStorage.clear();
 		window.location.href = '/login';
 	};
+
+	useEffect(() => {
+		if (sessionStorage.getItem('id') === null) {
+			window.location.href = '/login';
+		}
+	}, [isLoggedIn]);
 
 	return (
 		<nav className="fixed left-0 top-0 !z-[100] w-full text-nowrap bg-green-800 shadow-lg">
@@ -84,7 +90,7 @@ export default function NavBar({ isLoggedIn }) {
 								</li>
 								<li>
 									<a
-										href="/profile/pengguna"
+										href="/profile/pelanggan"
 										className="rounded px-3 py-2 hover:bg-green-700"
 									>
 										Profile
