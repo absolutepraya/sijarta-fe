@@ -46,7 +46,7 @@ function PekerjaanJasa() {
 	// Fetch data from API
 	useEffect(() => {
 		axios
-			.get('http://localhost:5000/red/pesanan')
+			.get('http://localhost:5000/red/pesanan-mencari-pekerja-terdekat')
 			.then((res) => {
 				setPesanan(res.data);
 				setFilteredData(res.data);
