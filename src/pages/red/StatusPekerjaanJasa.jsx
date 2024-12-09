@@ -169,28 +169,18 @@ export default function StatusPekerjaanJasa() {
 				name="John Doe"
 			/>
 			<p className="text-2xl font-bold">MyPay</p>
-			{/* <div className="flex flex-row space-x-6">
+			<div className="flex flex-row space-x-6">
 				<input
 					type="text"
 					placeholder="Search Subkategori"
-					value={searchTerm}
 					// onChange={handleSearch}
 					className="h-12 w-[12rem] rounded-xl border px-4"
 				/>
 				<select
-					value={selectedStatus}
 					// onChange={handleStatusChange}
 					className="h-12 w-[12rem] rounded-xl px-4"
 				>
-					<option value="">All Status</option>
-					{statusList.map((status, index) => (
-						<option
-							key={index}
-							value={status}
-						>
-							{status}
-						</option>
-					))}
+					<option default value="">All Status</option>
 				</select>
 				<button
 					// onClick={applyFilters}
@@ -198,7 +188,8 @@ export default function StatusPekerjaanJasa() {
 				>
 					Filter
 				</button>
-			</div> */}
+			</div>
+			<p>(Filter di page ini gasempet keimplement 😞)</p>
 			<div className="flex w-[50rem] flex-col space-y-4 rounded-xl bg-slate-200 px-8 py-6">
 				{pesanan.length > 0 ? (
 					pesanan.map((item, index) => (
