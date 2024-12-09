@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function NavBar({ isLoggedIn, role, name }) {
+export default function NavBar({ isLoggedIn }) {
 	const [isPekerjaanOpen, setIsPekerjaanOpen] = useState(false);
+	const [nama, setNama] = useState(sessionStorage.getItem('nama'));
+	const [role, setRole] = useState('Pengguna'); // Karena belum ada cara dapetin role
 
 	const togglePekerjaan = () => {
 		setIsPekerjaanOpen(!isPekerjaanOpen);
@@ -45,7 +48,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 							<>
 								<li>
 									<span className="font-semibold">
-										{name} | {role}
+										{nama} | {role}
 									</span>
 								</li>
 								<li>
@@ -102,7 +105,7 @@ export default function NavBar({ isLoggedIn, role, name }) {
 							<>
 								<li>
 									<span className="flex flex-col items-start justify-center font-semibold">
-										{name} | {role}
+										{nama} | {role}
 									</span>
 								</li>
 								<li>
