@@ -14,7 +14,7 @@ export default function RegisterPage() {
 				<h1 className="text-xl font-bold">Role</h1>
 				{/* redirect ke pengguna */}
 				<a
-					href="/register/pengguna"
+					href="/register/pelanggan"
 					className="flex w-3/5 justify-center rounded-lg bg-green-800 py-2 text-white"
 				>
 					Pengguna
