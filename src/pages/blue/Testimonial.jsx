@@ -24,7 +24,7 @@ export default function Testimonial() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const API_BASE_URL = 'http://localhost:5000/blue';
+  const API_BASE_URL = 'https://sijarta-be-b66f1ae5c3c1.herokuapp.com/blue';
 
   useEffect(() => {
     // Fetch data from backend

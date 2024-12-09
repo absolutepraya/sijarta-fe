@@ -46,7 +46,7 @@ function PekerjaanJasa() {
 	// Fetch data from API
 	useEffect(() => {
 		axios
-			.get('http://localhost:5000/red/pesanan-mencari-pekerja-terdekat')
+			.get('https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/pesanan-mencari-pekerja-terdekat')
 			.then((res) => {
 				setPesanan(res.data);
 				setFilteredData(res.data);
@@ -73,7 +73,7 @@ function PekerjaanJasa() {
 	// Function to change status of pesanan to 'Menunggu Pekerja Berangkat'
 	const handlePekerjaDitemukan = (id) => {
 		axios
-			.put('http://localhost:5000/red/pesanan/?idpesanan=' + id + '&idstatus=90473fc0-da6a-41f0-bae4-7952c56d019d')
+			.put('https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/pesanan/?idpesanan=' + id + '&idstatus=90473fc0-da6a-41f0-bae4-7952c56d019d')
 			.then((res) => {
 				console.log(res.data);
 				window.location.reload();

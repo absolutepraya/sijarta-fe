@@ -40,7 +40,7 @@ export default function RegisterPekerja() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/yellow/register/pekerja', null, {
+            const response = await axios.post('https://sijarta-be-b66f1ae5c3c1.herokuapp.com/yellow/register/pekerja', null, {
                 params: formData,
             });
             alert(response.data);

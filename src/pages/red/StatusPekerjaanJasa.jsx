@@ -74,7 +74,7 @@ export default function StatusPekerjaanJasa() {
 	// Fetch data from API
 	useEffect(() => {
 		axios
-			.get('http://localhost:5000/red/pesanan-untuk-update?idpekerja=' + sessionStorage.getItem('id'))
+			.get('https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/pesanan-untuk-update?idpekerja=' + sessionStorage.getItem('id'))
 			.then((res) => {
 				setPesanan(res.data);
 				console.log(res.data);
@@ -127,7 +127,7 @@ export default function StatusPekerjaanJasa() {
 		}
 
 		axios
-			.put('http://localhost:5000/red/pesanan?idpesanan=' + idpesanan + '&idstatus=' + newStatus)
+			.put('https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/pesanan?idpesanan=' + idpesanan + '&idstatus=' + newStatus)
 			.then((res) => {
 				console.log(res.data);
 				window.location.reload();

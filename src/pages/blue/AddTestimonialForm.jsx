@@ -50,7 +50,7 @@ export default function AddTestimonialForm() {
     const [authToken, setAuthToken] = useState(''); // Replace with actual token retrieval logic
 	const[isSubmitting, setIsSubmitting] = useState(false);
 
-    const API_BASE_URL = 'http://localhost:5000/blue';
+    const API_BASE_URL = 'https://sijarta-be-b66f1ae5c3c1.herokuapp.com/blue';
 
     useEffect(() => {
         const fetchData = async () => {

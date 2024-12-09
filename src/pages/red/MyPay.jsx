@@ -22,7 +22,7 @@ export default function MyPay({ isPekerja }) {
 	// Fetch data from BE
 	useEffect(() => {
 		axios
-			.get(`http://localhost:5000/red/user/${userId}`)
+			.get(`https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/user/${userId}`)
 			.then((res) => {
 				setSaldo(res.data.saldomypay);
 			})
@@ -31,7 +31,7 @@ export default function MyPay({ isPekerja }) {
 			});
 
 		axios
-			.get(`http://localhost:5000/red/transaksi/${userId}`)
+			.get(`https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/transaksi/${userId}`)
 			.then((res) => {
 				setTransactions(res.data);
 				console.log(res.data);
@@ -44,7 +44,7 @@ export default function MyPay({ isPekerja }) {
 	// Function to handle topup with PUT
 	const handleTopUp = () => {
 		axios
-			.put(`http://localhost:5000/red/topup`, null, {
+			.put(`https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/topup`, null, {
 				params: {
 					userid: userId,
 					nominal: nominal1,
@@ -62,7 +62,7 @@ export default function MyPay({ isPekerja }) {
 
 	const handleTransfer = () => {
 		axios
-			.put(`http://localhost:5000/red/transfer`, null, {
+			.put(`https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/transfer`, null, {
 				params: {
 					senderid: userId,
 					nominal: nominal2,
@@ -81,7 +81,7 @@ export default function MyPay({ isPekerja }) {
 
 	const handleWithdrawal = () => {
 		axios
-			.put(`http://localhost:5000/red/withdraw`, null, {
+			.put(`https://sijarta-be-b66f1ae5c3c1.herokuapp.com/red/withdraw`, null, {
 				params: {
 					userid: userId,
 					nominal: nominal3,

@@ -7,7 +7,7 @@ export default function LoginPage() {
 
 	const handleLogin = () => {
 		axios
-			.get('http://localhost:5000/yellow/login?nohp=' + nohpInput + '&pwd=' + pwdInput)
+			.get('https://sijarta-be-b66f1ae5c3c1.herokuapp.com/yellow/login?nohp=' + nohpInput + '&pwd=' + pwdInput)
 			.then((res) => {
 				// Save id, nama, nohp, role to session storage
 				sessionStorage.setItem('id', res.data.id);

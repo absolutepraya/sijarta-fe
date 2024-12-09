@@ -12,7 +12,7 @@ export default function ProfilePekerja() {
 		const fetchProfile = async () => {
 			try {
 				const id = sessionStorage.getItem("id"); // Ambil ID pekerja dari sessionStorage
-				const response = await axios.get(`http://localhost:5000/yellow/profile/pekerja?id=${id}`);
+				const response = await axios.get(`https://sijarta-be-b66f1ae5c3c1.herokuapp.com/yellow/profile/pekerja?id=${id}`);
 				setProfileData(response.data);
 				setFormData(response.data); // Inisialisasi form data dengan profil pekerja
 			} catch (err) {
@@ -28,7 +28,7 @@ export default function ProfilePekerja() {
 	const handleUpdate = async () => {
 		try {
 			const id = sessionStorage.getItem("id");
-			await axios.put(`http://localhost:5000/profile/pekerja?id=${id}`, formData);
+			await axios.put(`https://sijarta-be-b66f1ae5c3c1.herokuapp.com/profile/pekerja?id=${id}`, formData);
 			alert("Profil berhasil diperbarui!");
 			setFormOpen(false); // Tutup form setelah update berhasil
 		} catch (err) {

@@ -36,7 +36,7 @@ export default function RegisterPengguna() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/yellow/register/pengguna', null, {
+            const response = await axios.post('https://sijarta-be-b66f1ae5c3c1.herokuapp.com/yellow/register/pengguna', null, {
                 params: formData,
             });
             alert(response.data);
