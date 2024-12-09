@@ -57,6 +57,32 @@ function PekerjaanJasa() {
 			});
 	}, []);
 
+	// postgres=> select * from status_pesanan;
+	//                   id                  |             status
+	// --------------------------------------+---------------------------------
+	//  8b6930c6-2d60-490d-a038-0ca3c5c44abe | Menunggu Pembayaran
+	//  db1c5a8e-0220-4b96-a9a3-a4a965ca2c5e | Pembayaran Berhasil
+	//  5db7572e-9dba-4467-b69b-c09ac3551f4a | Mencari Pekerja Terdekat
+	//  3fb470d6-6526-423d-a5fb-176e156d3eaf | Pemesanan Dibatalkan
+	//  3870e6de-c3de-4cdc-a0f7-deb3059abfdc | Pesanan Selesai
+	//  90473fc0-da6a-41f0-bae4-7952c56d019d | Menunggu Pekerja Berangkat
+	//  3f7fc2b2-862f-4c1d-a660-70ff0469d236 | Pekerja Tiba di Lokasi
+	//  e24819cf-655b-4690-8541-b5969a03ecc6 | Pelayanan Jasa Sedang Dilakukan
+	// (8 rows)
+
+	// Function to change status of pesanan to 'Menunggu Pekerja Berangkat'
+	const handlePekerjaDitemukan = (id) => {
+		axios
+			.put('http://localhost:5000/red/pesanan/?idpesanan=' + id + '&idstatus=90473fc0-da6a-41f0-bae4-7952c56d019d')
+			.then((res) => {
+				console.log(res.data);
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
 	// Return JSX from the component
@@ -148,7 +174,12 @@ function PekerjaanJasa() {
 								<p>Rp{item.totalbiaya.toLocaleString()}</p>
 							</div>
 							<div className="flex h-full w-1/4 flex-row items-center justify-end">
-								<button className="rounded-xl bg-blue-600 px-3 py-2 font-semibold text-white">Kerjakan</button>
+								<button
+									className="rounded-xl bg-blue-600 px-3 py-2 font-semibold text-white"
+									onClick={() => handlePekerjaDitemukan(item.id)}
+								>
+									Kerjakan
+								</button>
 							</div>
 						</div>
 					))
