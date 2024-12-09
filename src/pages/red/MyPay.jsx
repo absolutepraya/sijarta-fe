@@ -11,11 +11,18 @@ export default function MyPay({ isPekerja }) {
 	const [formCategory, setFormCategory] = useState(1);
 	const [saldo, setSaldo] = useState('Fetching data...');
 	const [transactions, setTransactions] = useState([]);
+	const [useEffectTrigger, setUseEffectTrigger] = useState(0);
+
+	// Input state
+	const [nominal1, setNominal1] = useState(0);
+	const [nominal2, setNominal2] = useState(0);
+	const [nominal3, setNominal3] = useState(0);
+	const [nohpTransfer, setNohpTransfer] = useState('');
 
 	// Fetch data from BE
 	useEffect(() => {
 		axios
-			.get('http://localhost:5000/red/user/' + userId)
+			.get(`http://localhost:5000/red/user/${userId}`)
 			.then((res) => {
 				setSaldo(res.data.saldomypay);
 			})
@@ -24,7 +31,7 @@ export default function MyPay({ isPekerja }) {
 			});
 
 		axios
-			.get('http://localhost:5000/red/transaksi/' + userId)
+			.get(`http://localhost:5000/red/transaksi/${userId}`)
 			.then((res) => {
 				setTransactions(res.data);
 				console.log(res.data);
@@ -32,14 +39,70 @@ export default function MyPay({ isPekerja }) {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [useEffectTrigger, userId]);
+
+	// Function to handle topup with PUT
+	const handleTopUp = () => {
+		axios
+			.put(`http://localhost:5000/red/topup`, null, {
+				params: {
+					userid: userId,
+					nominal: nominal1,
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+				setUseEffectTrigger((prev) => prev + 1);
+				setFormOpen(false);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+	const handleTransfer = () => {
+		axios
+			.put(`http://localhost:5000/red/transfer`, null, {
+				params: {
+					senderid: userId,
+					nominal: nominal2,
+					receivernohp: nohpTransfer,
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+				setUseEffectTrigger((prev) => prev + 1);
+				setFormOpen(false);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+	const handleWithdrawal = () => {
+		axios
+			.put(`http://localhost:5000/red/withdraw`, null, {
+				params: {
+					userid: userId,
+					nominal: nominal3,
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+				setUseEffectTrigger((prev) => prev + 1);
+				setFormOpen(false);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	return (
 		<div className="flex min-h-screen w-full flex-col items-center space-y-8 px-24 py-16">
 			<NavBar
 				isLoggedIn={true}
 				role={isPekerja ? 'Pekerja' : 'Pengguna'}
-				name="John Doe"
+				name={nama || 'John Doe'}
 			/>
 			{formOpen && (
 				<div className="fixed z-20 flex w-[40rem] flex-col items-center space-y-4 rounded-xl bg-slate-200 px-8 py-6">
@@ -55,6 +118,7 @@ export default function MyPay({ isPekerja }) {
 						<p className="font-semibold">Kategori Transaksi</p>
 						<select
 							className="h-12 w-full rounded-xl border bg-white px-4"
+							value={formCategory}
 							onChange={(e) => setFormCategory(parseInt(e.target.value))}
 						>
 							<option value={1}>Top-Up</option>
@@ -70,19 +134,26 @@ export default function MyPay({ isPekerja }) {
 							<div className="flex flex-row items-center space-x-2">
 								<p>Nominal:</p>
 								<input
-									type="text"
+									type="number"
 									className="h-12 w-40 rounded-xl border px-4"
+									value={nominal1}
+									onChange={(e) => setNominal1(e.target.value)}
 								/>
 							</div>
 
 							<div className="flex flex-row space-x-3">
 								<button
 									className="h-12 w-1/2 rounded-xl bg-black font-bold text-white"
-									onClick={() => setFormOpen(!formOpen)}
+									onClick={() => setFormOpen(false)}
 								>
 									Batal
 								</button>
-								<button className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white">Top Up</button>
+								<button
+									className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white"
+									onClick={handleTopUp}
+								>
+									Top Up
+								</button>
 							</div>
 						</div>
 					) : formCategory === 2 ? (
@@ -97,16 +168,21 @@ export default function MyPay({ isPekerja }) {
 								</select>
 							</div>
 
-							<p className="font-semibold">Harga Jasa: </p>
+							<p className="font-semibold">Harga Jasa: Rp{/* Add dynamic price if available */}</p>
 
 							<div className="flex flex-row space-x-3">
 								<button
 									className="h-12 w-1/2 rounded-xl bg-black font-bold text-white"
-									onClick={() => setFormOpen(!formOpen)}
+									onClick={() => setFormOpen(false)}
 								>
 									Batal
 								</button>
-								<button className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white">Bayar</button>
+								<button
+									className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white"
+									onClick={() => alert('Pembayaran belum diimplementasikan.')}
+								>
+									Bayar
+								</button>
 							</div>
 						</div>
 					) : formCategory === 3 ? (
@@ -114,27 +190,36 @@ export default function MyPay({ isPekerja }) {
 							<div className="flex flex-col items-center space-y-1">
 								<p>Nominal:</p>
 								<input
-									type="text"
+									type="number"
 									className="h-12 w-60 rounded-xl border px-4"
+									value={nominal2}
+									onChange={(e) => setNominal2(e.target.value)}
 								/>
 							</div>
 
 							<div className="flex flex-col items-center space-y-1">
-								<p>No. HP:</p>
+								<p>No. HP Penerima:</p>
 								<input
 									type="text"
 									className="h-12 w-60 rounded-xl border px-4"
+									value={nohpTransfer}
+									onChange={(e) => setNohpTransfer(e.target.value)}
 								/>
 							</div>
 
 							<div className="flex flex-row space-x-3">
 								<button
 									className="h-12 w-1/2 rounded-xl bg-black font-bold text-white"
-									onClick={() => setFormOpen(!formOpen)}
+									onClick={() => setFormOpen(false)}
 								>
 									Batal
 								</button>
-								<button className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white">Transfer</button>
+								<button
+									className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white"
+									onClick={handleTransfer}
+								>
+									Transfer
+								</button>
 							</div>
 						</div>
 					) : formCategory === 4 ? (
@@ -152,27 +237,35 @@ export default function MyPay({ isPekerja }) {
 							<div className="flex flex-col items-center space-y-1">
 								<p>Nominal:</p>
 								<input
-									type="text"
+									type="number"
 									className="h-12 w-60 rounded-xl border px-4"
+									value={nominal3}
+									onChange={(e) => setNominal3(e.target.value)}
 								/>
 							</div>
 
 							<div className="flex flex-col items-center space-y-1">
-								<p>No. HP:</p>
+								<p>Nomor Rekening:</p>
 								<input
 									type="text"
 									className="h-12 w-60 rounded-xl border px-4"
+									// You might want to add state for this input if needed
 								/>
 							</div>
 
 							<div className="flex w-full flex-row space-x-3">
 								<button
 									className="h-12 w-1/2 rounded-xl bg-black font-bold text-white"
-									onClick={() => setFormOpen(!formOpen)}
+									onClick={() => setFormOpen(false)}
 								>
 									Batal
 								</button>
-								<button className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white">Transfer</button>
+								<button
+									className="h-12 w-1/2 text-nowrap rounded-xl bg-blue-600 font-semibold text-white"
+									onClick={handleWithdrawal}
+								>
+									Withdraw
+								</button>
 							</div>
 						</div>
 					) : null}
@@ -180,7 +273,7 @@ export default function MyPay({ isPekerja }) {
 			)}
 
 			{/* Dim background overlay */}
-			{formOpen && <div className="fixed -top-40 z-10 h-[100rem] w-screen bg-black opacity-50" />}
+			{formOpen && <div className="fixed top-0 z-10 h-full w-full bg-black opacity-50" />}
 
 			<p className="text-2xl font-bold">MyPay</p>
 			<div className="flex flex-row space-x-6">
@@ -190,7 +283,7 @@ export default function MyPay({ isPekerja }) {
 				</div>
 				<button
 					className="h-12 w-[12rem] rounded-xl bg-black font-bold text-white"
-					onClick={() => setFormOpen(!formOpen)}
+					onClick={() => setFormOpen(true)}
 				>
 					Lakukan Transaksi
 				</button>
@@ -199,20 +292,24 @@ export default function MyPay({ isPekerja }) {
 			<div className="flex w-[50rem] flex-col space-y-4 rounded-xl bg-slate-200 px-8 py-6">
 				<p className="font-bold">Riwayat Transaksi</p>
 				<div className="flex w-full flex-col items-center space-y-2">
-					{transactions.map((item, index) => (
-						<div
-							key={index}
-							className="flex w-full flex-row items-center justify-between"
-						>
-							<p className="w-1/2">{item.tgl}</p>
-							<p className="w-1/2 justify-center text-center">{item.nominal}</p>
-							<p className="w-1/2 justify-end text-end">{item.kategori}</p>
-						</div>
-					))}
+					{transactions.length > 0 ? (
+						transactions.map((item, index) => (
+							<div
+								key={index}
+								className="flex w-full flex-row items-center justify-between"
+							>
+								<p className="w-1/3">{new Date(item.tgl).toLocaleDateString()}</p>
+								<p className="w-1/3 text-center">Rp{item.nominal}</p>
+								<p className="w-1/3 text-end">{item.kategori}</p>
+							</div>
+						))
+					) : (
+						<p>No transactions found.</p>
+					)}
 				</div>
 			</div>
 
-			<div className="flex flex-col space-y-1 items-center">
+			<div className="flex flex-col items-center space-y-1">
 				<p>
 					To check from Pekerja side, go to{' '}
 					<a
