@@ -1,26 +1,32 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// URL BE
-const URL = 'http://localhost:5000/';
-
 export default function LoginPage() {
 	const [nohpInput, setNohpInput] = useState('');
 	const [pwdInput, setPwdInput] = useState('');
 
 	const handleLogin = () => {
 		axios
-			.get(URL + 'yellow/login?nohp=' + nohpInput + '&pwd=' + pwdInput)
+			.get('http://localhost:5000/yellow/login?nohp=' + nohpInput + '&pwd=' + pwdInput)
 			.then((res) => {
-				// Save id, nama, role to session storage
+				// Save id, nama, nohp, role to session storage
 				sessionStorage.setItem('id', res.data.id);
 				sessionStorage.setItem('nama', res.data.nama);
+				sessionStorage.setItem('nohp', res.data.nohp);
+				sessionStorage.setItem('role', res.data.role);
 				window.location.href = '/home';
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
+
+	useEffect(() => {
+		// Check if user is already logged in
+		if (sessionStorage.getItem('id')) {
+			window.location.href = '/home';
+		}
+	})
 
 	return (
 		<div className="flex h-screen w-screen items-center justify-center bg-gray-300">
